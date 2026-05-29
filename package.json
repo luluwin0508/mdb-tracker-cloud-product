@@ -1,0 +1,12 @@
+{
+  "name": "mdb-tracker-cloud-product",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node functions/api/local-server.js",
+    "check": "node scripts/check.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

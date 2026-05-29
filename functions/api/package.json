@@ -1,0 +1,12 @@
+{
+  "name": "mdb-tracker-api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.9.1"
+  }
+}

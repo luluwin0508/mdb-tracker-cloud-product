@@ -1,0 +1,28 @@
+{
+  "envId": "mdb-board-d8g1opk5y85ae371e",
+  "framework": {
+    "name": "mdb-tracker",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "outputPath": "public"
+        }
+      },
+      "api": {
+        "use": "@cloudbase/framework-plugin-function",
+        "inputs": {
+          "functionRootPath": "functions",
+          "functions": [
+            {
+              "name": "api",
+              "timeout": 300,
+              "runtime": "Nodejs18.15",
+              "handler": "index.main"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
