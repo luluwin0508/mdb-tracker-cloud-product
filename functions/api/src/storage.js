@@ -35,8 +35,12 @@ async function readSnapshot() {
       // Fall back to bundled seed data below.
     }
   }
-  const raw = await fs.readFile(LOCAL_DATA_PATH, "utf8");
-  return JSON.parse(raw);
+  try {
+    const raw = await fs.readFile(LOCAL_DATA_PATH, "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { results: {}, blocked: [], last_run: null };
+  }
 }
 
 async function saveSnapshot(snapshot) {

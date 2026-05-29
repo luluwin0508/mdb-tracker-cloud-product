@@ -120,8 +120,8 @@ const DISPLAY_SECTIONS = [
 
 const BANK_LOGOS = {
   WB: "/logos/wb.svg",
-  ADB: "/logos/adb.webp",
-  AFDB: "/logos/afdb.webp",
+  ADB: "/logos/adb.svg",
+  AFDB: "/logos/afdb.svg",
   AIIB: "/logos/aiib.svg",
 };
 
