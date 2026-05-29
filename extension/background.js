@@ -2,7 +2,8 @@
 // 不再自动注入/自动抓取，完全由你点击触发。
 
 // 默认云端地址；可在扩展「选项」页覆盖（选项优先）。
-const DEFAULT_API_BASE = "https://mdb-fdcompliance.xyz";
+// xyz 域名好了之后可改回 https://mdb-fdcompliance.xyz
+const DEFAULT_API_BASE = "https://roaring-gnome-273245.netlify.app";
 
 async function getApiBase() {
   const { apiBase } = await chrome.storage.sync.get("apiBase");
