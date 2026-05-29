@@ -34,6 +34,7 @@ function latestItem(items, newsFilter) {
 function buildSections(snapshot) {
   const results = (snapshot && snapshot.results) || {};
   const blocked = new Set((snapshot && snapshot.blocked) || []);
+  const sourceVisits = (snapshot && snapshot.source_visits) || {};
   return DISPLAY_SECTIONS.map((section) => ({
     id: section.id,
     title: section.title,
@@ -48,6 +49,7 @@ function buildSections(snapshot) {
         name: source.name,
         url: source.url.replace("{year}", new Date().getFullYear()),
         failed: blocked.has(key),
+        last_visited: sourceVisits[key] || "",
         latest_date: latest ? (latest.date || latest.date_label || "") : "",
         latest_item: latest,
       };

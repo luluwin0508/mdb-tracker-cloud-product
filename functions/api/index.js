@@ -3,6 +3,7 @@ const { buildSections } = require("./src/sections");
 const { readSnapshot, saveSnapshot, blobsStatus, setBlobStoreFactory } = require("./src/storage");
 const { matchSourceKey, parseSyncedHtml } = require("./src/sync-parser");
 const { DISPLAY_SECTIONS } = require("./src/sources");
+const { markSourceVisits, mergeNewItems, mergeResultSet } = require("./src/snapshot");
 
 const SECTION_IDS = new Set(DISPLAY_SECTIONS.map((section) => section.id));
 
@@ -13,11 +14,7 @@ async function refreshSection(sectionId) {
   const previous = await readSnapshot().catch(() => ({ results: {}, blocked: [], last_run: null }));
   const scraped = await scrapeAll(sectionId);
   const attempted = new Set(Object.keys(scraped.results || {}));
-
-  const results = { ...(previous.results || {}) };
-  for (const [key, items] of Object.entries(scraped.results || {})) {
-    if (items && items.length) results[key] = items;
-  }
+  const merged = mergeResultSet(previous.results || {}, scraped.results || {});
 
   const blocked = [
     ...(previous.blocked || []).filter((key) => !attempted.has(key)),
@@ -25,8 +22,10 @@ async function refreshSection(sectionId) {
   ];
 
   const snapshot = {
-    results,
+    ...previous,
+    results: merged.results,
     blocked: [...new Set(blocked)],
+    source_visits: markSourceVisits(previous.source_visits || {}, attempted, scraped.last_run),
     last_run: scraped.last_run,
   };
   await saveSnapshot(snapshot);
@@ -77,17 +76,43 @@ async function handleRequest(method, rawPath, body = "") {
     if (!key) return json(200, { ok: false, error: `unknown source: ${url}` });
 
     const items = parseSyncedHtml(key, html, url);
-    if (!items.length) return json(200, { ok: false, key, count: 0, error: "no items parsed" });
-
-    const previous = await readSnapshot().catch(() => ({ results: {}, blocked: [] }));
-    const snapshot = {
+    const visitedAt = formatShanghaiTime(new Date());
+    const previous = await readSnapshot().catch(() => ({ results: {}, blocked: [], source_visits: {} }));
+    const baseSnapshot = {
       ...previous,
-      results: { ...(previous.results || {}), [key]: items },
+      source_visits: markSourceVisits(previous.source_visits || {}, [key], visitedAt),
+      last_run: visitedAt,
+    };
+
+    if (!items.length) {
+      await saveSnapshot(baseSnapshot);
+      return json(200, {
+        ok: false,
+        key,
+        count: 0,
+        error: "no items parsed",
+        snapshot: baseSnapshot,
+        sections: buildSections(baseSnapshot),
+      });
+    }
+
+    const merged = mergeNewItems((previous.results || {})[key] || [], items);
+    const snapshot = {
+      ...baseSnapshot,
+      results: merged.added
+        ? { ...(previous.results || {}), [key]: merged.items }
+        : { ...(previous.results || {}) },
       blocked: ((previous.blocked || []).filter((blockedKey) => blockedKey !== key)),
-      last_run: formatShanghaiTime(new Date()),
     };
     await saveSnapshot(snapshot);
-    return json(200, { ok: true, key, count: items.length, snapshot, sections: buildSections(snapshot) });
+    return json(200, {
+      ok: true,
+      key,
+      count: items.length,
+      added: merged.added,
+      snapshot,
+      sections: buildSections(snapshot),
+    });
   }
 
   return json(404, { ok: false, error: `No route for ${method} ${rawPath}` });

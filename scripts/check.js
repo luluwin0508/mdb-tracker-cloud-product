@@ -1,6 +1,7 @@
 const assert = require("assert");
 const { handleRequest } = require("../functions/api");
 const { matchSourceKey } = require("../functions/api/src/sync-parser");
+const { markSourceVisits, mergeNewItems } = require("../functions/api/src/snapshot");
 
 (async () => {
   assert.strictEqual(
@@ -10,6 +11,17 @@ const { matchSourceKey } = require("../functions/api/src/sync-parser");
   assert.strictEqual(
     matchSourceKey("https://www.afdb.org/en/organisational-structure/sanctions-office/summaries-sanctions-decisions"),
     "afdb_sanctions",
+  );
+  assert.deepStrictEqual(
+    markSourceVisits({ wb_news: "2026-05-30 09:00" }, ["afdb_appeals"], "2026-05-30 10:00"),
+    { wb_news: "2026-05-30 09:00", afdb_appeals: "2026-05-30 10:00" },
+  );
+  assert.deepStrictEqual(
+    mergeNewItems(
+      [{ title: "Manual note", link: "https://example.com/a#old" }],
+      [{ title: "Fetched duplicate", link: "https://example.com/a#new" }],
+    ),
+    { items: [{ title: "Manual note", link: "https://example.com/a#old" }], added: 0 },
   );
 
   const health = await handleRequest("GET", "/api/health");

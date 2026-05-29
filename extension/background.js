@@ -44,7 +44,7 @@ chrome.action.onClicked.addListener(async (tab) => {
     // 3. 在页面上弹提示
     const ok = Boolean(response && response.ok);
     const message = ok
-      ? `✓ 已同步 ${response.key}（${response.count} 条）`
+      ? `✓ ${response.added ? `已新增 ${response.key}（${response.added} 条）` : `已访问 ${response.key}，无新增`}`
       : `同步失败：${(response && response.error) || lastError || "未知错误"}`;
     flashBadge(ok ? "✓" : "!", ok ? "#15803d" : "#991b1b");
 

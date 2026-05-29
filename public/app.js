@@ -28,6 +28,7 @@ function render(payload) {
           <col style="width:56px">
           <col style="width:210px">
           <col style="width:118px">
+          <col style="width:150px">
           <col>
         </colgroup>
         <thead>
@@ -36,6 +37,7 @@ function render(payload) {
             <th>机构</th>
             <th>来源</th>
             <th>最近更新</th>
+            <th>最后访问</th>
             <th>最新内容</th>
           </tr>
         </thead>
@@ -68,6 +70,7 @@ function renderRow(row) {
       <td><span class="bank ${escapeHtml(row.bank)}">${escapeHtml(row.bank)}</span></td>
       <td class="src"><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener">${escapeHtml(row.name)}</a></td>
       <td class="date">${escapeHtml(row.latest_date || "—")}</td>
+      <td class="visited">${escapeHtml(row.last_visited || "—")}</td>
       <td class="entry">${entry}</td>
     </tr>
   `;
