@@ -1,7 +1,17 @@
 const assert = require("assert");
 const { handleRequest } = require("../functions/api");
+const { matchSourceKey } = require("../functions/api/src/sync-parser");
 
 (async () => {
+  assert.strictEqual(
+    matchSourceKey("https://www.afdb.org/en/organisational-structure/secretariat-sanctions-appeals-board/summaries-sanctions-appeals-board-decisions"),
+    "afdb_appeals",
+  );
+  assert.strictEqual(
+    matchSourceKey("https://www.afdb.org/en/organisational-structure/sanctions-office/summaries-sanctions-decisions"),
+    "afdb_sanctions",
+  );
+
   const health = await handleRequest("GET", "/api/health");
   assert.strictEqual(health.statusCode, 200);
 

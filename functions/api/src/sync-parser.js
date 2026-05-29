@@ -12,16 +12,20 @@ function matchSourceKey(url) {
   }
 
   for (const source of SOURCES) {
-    const sourceUrl = source.url.replace("{year}", "");
-    let parsed;
-    try {
-      parsed = new URL(sourceUrl);
-    } catch {
-      continue;
-    }
-    const sourcePath = parsed.pathname.replace(/\/$/, "");
-    if (visited.hostname === parsed.hostname && visited.pathname.startsWith(sourcePath)) {
-      return source.key;
+    // Match canonical URLs and source-specific alternate navigation paths.
+    const candidates = [source.url, ...(source.altUrls || [])];
+    for (const candidate of candidates) {
+      const cleaned = candidate.replace("{year}", "");
+      let parsed;
+      try {
+        parsed = new URL(cleaned);
+      } catch {
+        continue;
+      }
+      const sourcePath = parsed.pathname.replace(/\/$/, "");
+      if (visited.hostname === parsed.hostname && visited.pathname.startsWith(sourcePath)) {
+        return source.key;
+      }
     }
   }
   return "";

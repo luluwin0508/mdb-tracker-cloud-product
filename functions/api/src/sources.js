@@ -65,6 +65,10 @@ const SOURCES = [
     name: "Appeals Board Decisions",
     method: "jina",
     url: "https://www.afdb.org/en/topics-and-sectors/topics/sanctions-system/second-tier-the-secretariat-of-the-sanctions-appeals-board/summaries-of-the-sanctions-appeals-board-decisions",
+    // AFDB exposes this Appeals Board source through another navigation path.
+    altUrls: [
+      "https://www.afdb.org/en/organisational-structure/secretariat-sanctions-appeals-board/summaries-sanctions-appeals-board-decisions",
+    ],
   },
   {
     key: "afdb_news",
