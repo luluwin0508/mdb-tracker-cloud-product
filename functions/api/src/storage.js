@@ -71,4 +71,17 @@ async function saveSnapshot(snapshot) {
   }
 }
 
-module.exports = { readSnapshot, saveSnapshot };
+// 诊断用：报告 Blobs 在当前运行时是否真的可用（含具体报错），供 /health 调用。
+async function blobsStatus() {
+  try {
+    const { getStore } = require("@netlify/blobs");
+    const store = getStore(BLOB_STORE);
+    await store.setJSON("__healthcheck__", { t: Date.now() });
+    const back = await store.get("__healthcheck__", { type: "json" });
+    return { available: Boolean(back), roundtrip: Boolean(back) };
+  } catch (error) {
+    return { available: false, error: `${error.name}: ${error.message}` };
+  }
+}
+
+module.exports = { readSnapshot, saveSnapshot, blobsStatus };

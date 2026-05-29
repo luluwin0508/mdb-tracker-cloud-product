@@ -1,6 +1,6 @@
 const { scrapeAll } = require("./src/scraper");
 const { buildSections } = require("./src/sections");
-const { readSnapshot, saveSnapshot } = require("./src/storage");
+const { readSnapshot, saveSnapshot, blobsStatus } = require("./src/storage");
 const { matchSourceKey, parseSyncedHtml } = require("./src/sync-parser");
 const { DISPLAY_SECTIONS } = require("./src/sources");
 
@@ -51,7 +51,7 @@ async function handleRequest(method, rawPath, body = "") {
   if (method === "OPTIONS") return json(204, {});
 
   if (method === "GET" && path === "/health") {
-    return json(200, { ok: true, service: "mdb-tracker-api" });
+    return json(200, { ok: true, service: "mdb-tracker-api", blobs: await blobsStatus() });
   }
 
   if (method === "GET" && path === "/latest") {
