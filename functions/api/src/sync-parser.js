@@ -35,8 +35,63 @@ function parseSyncedHtml(key, html, url) {
     return filterItemsForSource(parseAfdbAnnual(html, url), source);
   }
 
+  if (key === "adb_cases") {
+    const rows = parseAdbCases(html, url);
+    if (rows.length) return filterItemsForSource(rows, source);
+    // 表格找不到再退回通用解析（保底）
+  }
+
   const items = extractAnchors(html, source.base || url);
   return filterItemsForSource(items, source);
+}
+
+// ADB case-summaries 的 HTML 表格解析（与 scraper.js 里 jina markdown 版本同构）。
+// 按表头位置取 Date of Sanction / Case Number / Entity Type，避免拿到导航锚。
+function parseAdbCases(html, sourceUrl) {
+  const results = [];
+  const seen = new Set();
+  const tableRe = /<table\b[^>]*>([\s\S]*?)<\/table>/gi;
+  let tm;
+  while ((tm = tableRe.exec(html))) {
+    const tableHtml = tm[1];
+    if (!/Case\s*Number/i.test(tableHtml)) continue;
+
+    const rowRe = /<tr\b[^>]*>([\s\S]*?)<\/tr>/gi;
+    const cellRe = /<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/gi;
+    let cols = null;
+    let rm;
+    while ((rm = rowRe.exec(tableHtml))) {
+      const cells = [...rm[1].matchAll(cellRe)].map((m) => stripTags(m[1]));
+      if (!cells.length) continue;
+
+      if (!cols) {
+        const lower = cells.map((c) => c.toLowerCase());
+        const date = lower.findIndex((c) => c.includes("date"));
+        const caseNum = lower.findIndex((c) => c.includes("case number"));
+        const entity = lower.findIndex((c) => c.includes("entity"));
+        if (date >= 0 && caseNum >= 0) cols = { date, caseNum, entity };
+        continue;
+      }
+
+      const dateLabel = cells[cols.date] || "";
+      const caseNumber = cells[cols.caseNum] || "";
+      const entity = cols.entity >= 0 ? cells[cols.entity] || "" : "";
+      if (!caseNumber) continue;
+
+      const sig = `${caseNumber}|${entity}`;
+      if (seen.has(sig)) continue;
+      seen.add(sig);
+
+      const parsed = parseDate(dateLabel);
+      results.push({
+        title: `Case ${caseNumber}` + (entity ? ` (${entity})` : ""),
+        link: sourceUrl,
+        date: parsed.date,
+        date_label: parsed.date_label || dateLabel,
+      });
+    }
+  }
+  return results;
 }
 
 function parseAfdbAnnual(html, url) {

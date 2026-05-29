@@ -174,12 +174,64 @@ async function fetchHtml(url, source) {
   return extractAnchors(html, source.base || url);
 }
 
+// ADB case-summaries 是结构化表格（Date of Sanction | Case | Case Number | Entity Type | Period）。
+// jina 把它渲染成 markdown pipe-table；按表头位置取列，避免被通用 markdown link 解析器
+// 当成普通锚（早先会拿到 "activities" 这种导航词）。
+function parseAdbCasesMarkdown(text, sourceUrl) {
+  const results = [];
+  const seen = new Set();
+  let cols = null;
+  for (const raw of String(text || "").split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line.startsWith("|") || !line.endsWith("|")) {
+      cols = null;
+      continue;
+    }
+    const cells = line.slice(1, -1).split("|").map((c) => c.trim());
+    if (cells.every((c) => /^[-:\s]*$/.test(c))) continue; // 分隔行
+
+    if (!cols) {
+      const lower = cells.map((c) => c.toLowerCase());
+      const date = lower.findIndex((c) => c.includes("date"));
+      const caseNum = lower.findIndex((c) => c.includes("case number"));
+      const entity = lower.findIndex((c) => c.includes("entity"));
+      if (date >= 0 && caseNum >= 0) cols = { date, caseNum, entity };
+      continue;
+    }
+
+    const dateLabel = cells[cols.date] || "";
+    const caseNumber = cells[cols.caseNum] || "";
+    const entity = cols.entity >= 0 ? cells[cols.entity] || "" : "";
+    if (!caseNumber) continue;
+
+    // 同一 case 可能有 Firm/Individual 两行，按 entity 区分保留
+    const sig = `${caseNumber}|${entity}`;
+    if (seen.has(sig)) continue;
+    seen.add(sig);
+
+    const parsed = parseDate(dateLabel);
+    results.push({
+      title: `Case ${caseNumber}` + (entity ? ` (${entity})` : ""),
+      link: sourceUrl,
+      date: parsed.date,
+      date_label: parsed.date_label || dateLabel,
+    });
+  }
+  return results;
+}
+
 async function fetchJina(url, source) {
   const text = await requestText(`https://r.jina.ai/${url}`, {
     Accept: "text/markdown",
     "X-No-Cache": "true",
   });
   if (/Enable JavaScript and cookies|Just a moment/i.test(text)) return [];
+
+  if (source.key === "adb_cases") {
+    const rows = parseAdbCasesMarkdown(text, url);
+    if (rows.length) return rows;
+    // 表格找不到（页面结构变了？）就退回通用解析
+  }
 
   const results = [];
   const seen = new Set();
@@ -269,4 +321,5 @@ module.exports = {
   extractAnchors,
   absoluteUrl,
   cleanTitle,
+  parseAdbCasesMarkdown,
 };
