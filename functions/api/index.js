@@ -1,11 +1,12 @@
-const { scrapeAll } = require("./src/scraper");
+const { scrapeAll, scrapeSource } = require("./src/scraper");
 const { buildSections } = require("./src/sections");
 const { readSnapshot, saveSnapshot, blobsStatus, setBlobStoreFactory } = require("./src/storage");
 const { matchSourceKey, parseSyncedHtml } = require("./src/sync-parser");
-const { DISPLAY_SECTIONS } = require("./src/sources");
+const { DISPLAY_SECTIONS, SOURCES } = require("./src/sources");
 const { markSourceVisits, mergeNewItems, mergeResultSet } = require("./src/snapshot");
 
 const SECTION_IDS = new Set(DISPLAY_SECTIONS.map((section) => section.id));
+const SOURCE_BY_KEY = Object.fromEntries(SOURCES.map((source) => [source.key, source]));
 
 // 抓取一个板块（不传 sectionId 则全量），把结果并回既有快照后保存。
 // 关键：blocked 只对本次"尝试过"的源做替换，其它板块的失败标记保持不变；
@@ -30,6 +31,30 @@ async function refreshSection(sectionId) {
   };
   await saveSnapshot(snapshot);
   return snapshot;
+}
+
+async function refreshSource(key) {
+  const source = SOURCE_BY_KEY[key];
+  if (!source) return null;
+
+  const previous = await readSnapshot().catch(() => ({ results: {}, blocked: [], source_visits: {} }));
+  const scraped = await scrapeSource(source);
+  const merged = mergeNewItems((previous.results || {})[key] || [], scraped.items || []);
+  const blocked = new Set(previous.blocked || []);
+  if (scraped.failed) blocked.add(key);
+  else blocked.delete(key);
+
+  const snapshot = {
+    ...previous,
+    results: merged.added
+      ? { ...(previous.results || {}), [key]: merged.items }
+      : { ...(previous.results || {}) },
+    blocked: [...blocked],
+    source_visits: markSourceVisits(previous.source_visits || {}, [key], scraped.last_run),
+    last_run: scraped.last_run,
+  };
+  await saveSnapshot(snapshot);
+  return { snapshot, scraped, added: merged.added };
 }
 
 function json(statusCode, body) {
@@ -66,6 +91,24 @@ async function handleRequest(method, rawPath, body = "") {
     }
     const snapshot = await refreshSection(sectionId);
     return json(200, { ok: true, section: sectionId || "all", snapshot, sections: buildSections(snapshot) });
+  }
+
+  const sourceRefreshMatch = path.match(/^\/refresh-source\/([\w-]+)$/);
+  if (method === "POST" && sourceRefreshMatch) {
+    const key = sourceRefreshMatch[1] || "";
+    const result = await refreshSource(key);
+    if (!result) return json(404, { ok: false, error: `unknown source: ${key}` });
+    const { snapshot, scraped, added } = result;
+    return json(200, {
+      ok: true,
+      key,
+      count: scraped.items.length,
+      added,
+      failed: scraped.failed,
+      error: scraped.error || "",
+      snapshot,
+      sections: buildSections(snapshot),
+    });
   }
 
   if (method === "POST" && path === "/sync") {
@@ -120,6 +163,7 @@ async function handleRequest(method, rawPath, body = "") {
 
 exports.handleRequest = handleRequest;
 exports.refreshSection = refreshSection;
+exports.refreshSource = refreshSource;
 exports.setBlobStoreFactory = setBlobStoreFactory;
 
 exports.main = async (event) => {

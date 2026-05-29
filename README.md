@@ -27,6 +27,7 @@ npm run check    # 冒烟测试 handleRequest
 - `GET  /api/latest` — 读取已保存数据 + 渲染用的 sections
 - `POST /api/refresh` — 全量刷新（并行，受单源超时约束）
 - `POST /api/refresh/<section>` — 分板块刷新，`<section>` ∈ `sanctions` / `news` / `annual`
+- `POST /api/refresh-source/<key>` — 单个来源刷新，例如 `wb_sdo` / `afdb_appeals`
 - `POST /api/sync` — 接收插件推来的页面 HTML，解析后并入快照
 - `GET  /api/health` — 健康检查
 
@@ -65,7 +66,7 @@ npm run check    # 冒烟测试 handleRequest
 | `refresh-sanctions` | 制裁案例 | 每天 2 次 | 5 个 jina 慢源 |
 | `refresh-annual` | 年度报告 | 每天 1 次 | 变动很少 |
 
-页面顶部「全部刷新」会一次性刷三个板块；每个板块标题旁的「↻ 刷新本板块」只刷该板块。
+页面顶部「全部刷新」会一次性刷三个板块；每个板块标题旁的「↻ 刷新本板块」只刷该板块；每个来源行里的「↻」按钮只刷新该单个来源。
 
 刷新写入规则：
 

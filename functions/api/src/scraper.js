@@ -301,6 +301,28 @@ async function scrapeAll(sectionId) {
   };
 }
 
+async function scrapeSource(source) {
+  const year = new Date().getFullYear().toString();
+  const lastRun = formatShanghaiTime(new Date());
+  try {
+    const items = await fetchSource(source, year);
+    return {
+      key: source.key,
+      items,
+      failed: !items.length,
+      last_run: lastRun,
+    };
+  } catch (error) {
+    return {
+      key: source.key,
+      items: [],
+      failed: true,
+      error: error.message,
+      last_run: lastRun,
+    };
+  }
+}
+
 function formatShanghaiTime(date) {
   return new Intl.DateTimeFormat("sv-SE", {
     timeZone: "Asia/Shanghai",
@@ -315,6 +337,7 @@ function formatShanghaiTime(date) {
 
 module.exports = {
   scrapeAll,
+  scrapeSource,
   filterItemsForSource,
   parseDate,
   parseDateLabel,

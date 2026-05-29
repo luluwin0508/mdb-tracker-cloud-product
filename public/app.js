@@ -29,6 +29,7 @@ function render(payload) {
           <col style="width:210px">
           <col style="width:118px">
           <col style="width:150px">
+          <col style="width:82px">
           <col>
         </colgroup>
         <thead>
@@ -38,6 +39,7 @@ function render(payload) {
             <th>来源</th>
             <th>最近更新</th>
             <th>最后访问</th>
+            <th>操作</th>
             <th>最新内容</th>
           </tr>
         </thead>
@@ -71,6 +73,7 @@ function renderRow(row) {
       <td class="src"><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener">${escapeHtml(row.name)}</a></td>
       <td class="date">${escapeHtml(row.latest_date || "—")}</td>
       <td class="visited">${escapeHtml(row.last_visited || "—")}</td>
+      <td><button class="row-refresh" type="button" data-source="${escapeHtml(row.key)}" title="刷新本来源">↻</button></td>
       <td class="entry">${entry}</td>
     </tr>
   `;
@@ -89,6 +92,16 @@ async function loadLatest() {
 async function fetchRefresh(sectionId) {
   const url = sectionId ? `/api/refresh/${sectionId}` : "/api/refresh";
   const response = await fetch(url, { method: "POST", headers: { Accept: "application/json" } });
+  const payload = await response.json();
+  if (!response.ok || !payload.ok) throw new Error(payload.error || "刷新失败");
+  return payload;
+}
+
+async function fetchRefreshSource(sourceKey) {
+  const response = await fetch(`/api/refresh-source/${encodeURIComponent(sourceKey)}`, {
+    method: "POST",
+    headers: { Accept: "application/json" },
+  });
   const payload = await response.json();
   if (!response.ok || !payload.ok) throw new Error(payload.error || "刷新失败");
   return payload;
@@ -128,8 +141,33 @@ async function refreshSection(sectionId, button) {
   }
 }
 
+async function refreshSource(sourceKey, button) {
+  button.disabled = true;
+  button.textContent = "…";
+  progress.style.width = "35%";
+  try {
+    const payload = await fetchRefreshSource(sourceKey);
+    render(payload);
+    metaLine.textContent = payload.failed
+      ? `已访问 ${sourceKey}，但云端刷新失败，保留上次结果`
+      : `已刷新 ${sourceKey}，新增 ${payload.added || 0} 条`;
+    progress.style.width = "100%";
+  } catch (error) {
+    metaLine.textContent = error.message;
+    button.disabled = false;
+    button.textContent = "↻";
+  } finally {
+    setTimeout(() => { progress.style.width = "0"; }, 300);
+  }
+}
+
 refreshBtn.addEventListener("click", refreshAll);
 app.addEventListener("click", (event) => {
+  const rowButton = event.target.closest(".row-refresh");
+  if (rowButton) {
+    refreshSource(rowButton.dataset.source, rowButton);
+    return;
+  }
   const button = event.target.closest(".sec-refresh");
   if (button) refreshSection(button.dataset.section, button);
 });

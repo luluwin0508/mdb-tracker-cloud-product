@@ -34,6 +34,10 @@ const { markSourceVisits, mergeNewItems } = require("../functions/api/src/snapsh
   assert.ok(Array.isArray(payload.sections));
   assert.ok(payload.sections.length >= 3);
   assert.ok(payload.sections.some((section) => section.rows.some((row) => row.logo)));
+  assert.ok(payload.sections.some((section) => section.rows.some((row) => Object.hasOwn(row, "last_visited"))));
+
+  const unknownSource = await handleRequest("POST", "/api/refresh-source/not_a_source");
+  assert.strictEqual(unknownSource.statusCode, 404);
 
   console.log("check passed");
 })().catch((error) => {
