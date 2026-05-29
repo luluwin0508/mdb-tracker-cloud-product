@@ -17,8 +17,11 @@ function render(payload) {
   const snapshot = payload.snapshot || {};
   metaLine.textContent = snapshot.last_run ? `上次刷新：${snapshot.last_run}` : "尚未刷新";
   app.innerHTML = sections.map((section) => `
-    <section class="section">
-      <div class="sec-title">${escapeHtml(section.title)}</div>
+    <section class="section" data-section="${escapeHtml(section.id)}">
+      <div class="sec-head">
+        <span class="sec-title">${escapeHtml(section.title)}</span>
+        <button class="sec-refresh" type="button" data-section="${escapeHtml(section.id)}">↻ 刷新本板块</button>
+      </div>
       <table>
         <colgroup>
           <col style="width:70px">
@@ -80,27 +83,54 @@ async function loadLatest() {
   setTimeout(() => progress.style.width = "0", 300);
 }
 
-async function refreshData() {
+async function fetchRefresh(sectionId) {
+  const url = sectionId ? `/api/refresh/${sectionId}` : "/api/refresh";
+  const response = await fetch(url, { method: "POST", headers: { Accept: "application/json" } });
+  const payload = await response.json();
+  if (!response.ok || !payload.ok) throw new Error(payload.error || "刷新失败");
+  return payload;
+}
+
+// 顶部「全部刷新」：按钮在 app 之外，需手动恢复状态
+async function refreshAll() {
   refreshBtn.disabled = true;
-  refreshBtn.textContent = "刷新中...";
-  metaLine.textContent = "正在刷新数据...";
+  refreshBtn.textContent = "刷新中…";
   progress.style.width = "35%";
   try {
-    const response = await fetch("/api/refresh", { method: "POST", headers: { Accept: "application/json" } });
-    const payload = await response.json();
-    if (!response.ok || !payload.ok) throw new Error(payload.error || "刷新失败");
-    render(payload);
+    render(await fetchRefresh(""));
     progress.style.width = "100%";
   } catch (error) {
     metaLine.textContent = error.message;
   } finally {
     refreshBtn.disabled = false;
-    refreshBtn.textContent = "刷新数据";
-    setTimeout(() => progress.style.width = "0", 300);
+    refreshBtn.textContent = "全部刷新";
+    setTimeout(() => { progress.style.width = "0"; }, 300);
   }
 }
 
-refreshBtn.addEventListener("click", refreshData);
+// 分板块刷新：按钮在 app 内，成功后会被 render 重建，故只在失败时手动恢复
+async function refreshSection(sectionId, button) {
+  button.disabled = true;
+  button.textContent = "刷新中…";
+  progress.style.width = "35%";
+  try {
+    render(await fetchRefresh(sectionId));
+    progress.style.width = "100%";
+  } catch (error) {
+    metaLine.textContent = error.message;
+    button.disabled = false;
+    button.textContent = "↻ 刷新本板块";
+  } finally {
+    setTimeout(() => { progress.style.width = "0"; }, 300);
+  }
+}
+
+refreshBtn.addEventListener("click", refreshAll);
+app.addEventListener("click", (event) => {
+  const button = event.target.closest(".sec-refresh");
+  if (button) refreshSection(button.dataset.section, button);
+});
+
 loadLatest().catch((error) => {
   metaLine.textContent = error.message;
   app.innerHTML = `<div class="empty">${escapeHtml(error.message)}</div>`;

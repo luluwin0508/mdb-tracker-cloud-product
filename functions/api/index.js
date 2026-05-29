@@ -2,6 +2,36 @@ const { scrapeAll } = require("./src/scraper");
 const { buildSections } = require("./src/sections");
 const { readSnapshot, saveSnapshot } = require("./src/storage");
 const { matchSourceKey, parseSyncedHtml } = require("./src/sync-parser");
+const { DISPLAY_SECTIONS } = require("./src/sources");
+
+const SECTION_IDS = new Set(DISPLAY_SECTIONS.map((section) => section.id));
+
+// 抓取一个板块（不传 sectionId 则全量），把结果并回既有快照后保存。
+// 关键：blocked 只对本次"尝试过"的源做替换，其它板块的失败标记保持不变；
+// 抓到空结果时保留上次数据（页面显示"上次保存结果"而非清空）。
+async function refreshSection(sectionId) {
+  const previous = await readSnapshot().catch(() => ({ results: {}, blocked: [], last_run: null }));
+  const scraped = await scrapeAll(sectionId);
+  const attempted = new Set(Object.keys(scraped.results || {}));
+
+  const results = { ...(previous.results || {}) };
+  for (const [key, items] of Object.entries(scraped.results || {})) {
+    if (items && items.length) results[key] = items;
+  }
+
+  const blocked = [
+    ...(previous.blocked || []).filter((key) => !attempted.has(key)),
+    ...(scraped.blocked || []),
+  ];
+
+  const snapshot = {
+    results,
+    blocked: [...new Set(blocked)],
+    last_run: scraped.last_run,
+  };
+  await saveSnapshot(snapshot);
+  return snapshot;
+}
 
 function json(statusCode, body) {
   return {
@@ -29,19 +59,14 @@ async function handleRequest(method, rawPath, body = "") {
     return json(200, { ok: true, snapshot, sections: buildSections(snapshot) });
   }
 
-  if (method === "POST" && path === "/refresh") {
-    const previous = await readSnapshot().catch(() => ({ results: {}, blocked: [] }));
-    const scraped = await scrapeAll();
-    const merged = {
-      ...scraped,
-      results: { ...(previous.results || {}) },
-      blocked: scraped.blocked,
-    };
-    for (const [key, items] of Object.entries(scraped.results || {})) {
-      if (items && items.length) merged.results[key] = items;
+  const refreshMatch = path.match(/^\/refresh(?:\/([\w-]+))?$/);
+  if (method === "POST" && refreshMatch) {
+    const sectionId = refreshMatch[1] || "";
+    if (sectionId && !SECTION_IDS.has(sectionId)) {
+      return json(404, { ok: false, error: `unknown section: ${sectionId}` });
     }
-    await saveSnapshot(merged);
-    return json(200, { ok: true, snapshot: merged, sections: buildSections(merged) });
+    const snapshot = await refreshSection(sectionId);
+    return json(200, { ok: true, section: sectionId || "all", snapshot, sections: buildSections(snapshot) });
   }
 
   if (method === "POST" && path === "/sync") {
@@ -69,6 +94,7 @@ async function handleRequest(method, rawPath, body = "") {
 }
 
 exports.handleRequest = handleRequest;
+exports.refreshSection = refreshSection;
 
 exports.main = async (event) => {
   const method = event.httpMethod || event.requestContext?.http?.method || "GET";

@@ -1,7 +1,11 @@
 const http = require("http");
 const https = require("https");
 const { URL } = require("url");
-const { SOURCES } = require("./sources");
+const { SOURCES, DISPLAY_SECTIONS } = require("./sources");
+
+// Netlify 免费版函数同步执行上限约 10s，所以云端每个源给更短的超时，
+// 保证分板块刷新能在限额内返回（拿到部分结果也比整体被杀好）。本地放宽。
+const REQUEST_TIMEOUT_MS = Number(process.env.REQUEST_TIMEOUT_MS) || (process.env.NETLIFY ? 8500 : 45000);
 
 const DATE_RE = /(\d{1,2}-(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-20\d{2})|(\d{1,2}-(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{2})\b|(\d{4}-\d{2}-\d{2})|((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2},?\s+20\d{2})|(\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+20\d{2})|(FY\s?20\d{2})/i;
 const TOPIC_RE = /sanction|debar|integrity|corrupt|fraud|collus|coerc|obstruct|case|decision|determination|appeal|board|annual|report/i;
@@ -16,7 +20,7 @@ function requestText(url, headers = {}) {
         "Cache-Control": "no-cache",
         ...headers,
       },
-      timeout: 60000,
+      timeout: REQUEST_TIMEOUT_MS,
     }, (res) => {
       const chunks = [];
       res.on("data", (chunk) => chunks.push(chunk));
@@ -213,9 +217,18 @@ async function fetchSource(source, year) {
   return filterItemsForSource(items, source);
 }
 
-async function scrapeAll() {
+function sourcesForSection(sectionId) {
+  if (!sectionId) return SOURCES;
+  const section = DISPLAY_SECTIONS.find((s) => s.id === sectionId);
+  if (!section) return [];
+  const keys = new Set(section.sources);
+  return SOURCES.filter((source) => keys.has(source.key));
+}
+
+async function scrapeAll(sectionId) {
+  const sources = sourcesForSection(sectionId);
   const year = new Date().getFullYear().toString();
-  const pairs = await Promise.all(SOURCES.map(async (source) => {
+  const pairs = await Promise.all(sources.map(async (source) => {
     try {
       const items = await fetchSource(source, year);
       return [source.key, items, !items.length];

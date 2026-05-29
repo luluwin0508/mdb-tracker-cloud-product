@@ -14,6 +14,12 @@
         "date_label": "2026-06-02"
       },
       {
+        "title": "Joint Statement by the Heads of the International Energy Agency, International Monetary Fund, World Bank Group and World Trade Organization",
+        "link": "http://www.worldbank.org/en/news/statement/2026/05/29/joint-statement-by-the-heads-of-the-international-energy-agency-international-monetary-fund-world-bank-group-and-world-t",
+        "date": "2026-05-29",
+        "date_label": "2026-05-29"
+      },
+      {
         "title": "International Conference of the Fondazione Centesimus Annus Pro Pontifice",
         "link": "http://www.worldbank.org/en/news/speech/2026/05/29/international-conference-of-the-fondazione-centesimus-annus-pro-pontifice",
         "date": "2026-05-29",
@@ -106,6 +112,12 @@
       {
         "title": "Services de base au Niger : stocks plus stables, financement accéléré et personnel mieux formé",
         "link": "http://www.banquemondiale.org/fr/news/feature/2026/05/26/niger-service-delivery-shift-reduced-stockouts-faster-financing-and-improved-staffing",
+        "date": "2026-05-26",
+        "date_label": "2026-05-26"
+      },
+      {
+        "title": "​​Trust by Design: Securing Digital Development​",
+        "link": "http://www.worldbank.org/en/results/2026/05/26/-trust-by-design-securing-digital-development",
         "date": "2026-05-26",
         "date_label": "2026-05-26"
       },
@@ -468,18 +480,6 @@
         "link": "http://www.vsemirnyjbank.org/ru/news/press-release/2026/05/14/connectivity-resilience-jobs-and-private-sector-led-growth-prioritized-in-new-partnership-with-kazakhstan",
         "date": "2026-05-14",
         "date_label": "2026-05-14"
-      },
-      {
-        "title": "Leaders in Western and Central Africa and Partners Call for Stronger Action on Nutrition and Early Childhood Development",
-        "link": "http://www.worldbank.org/en/news/press-release/2026/05/13/leaders-in-western-and-central-africa-and-partners-call-for-stronger-action-on-nutrition-and-early-childhood-development",
-        "date": "2026-05-13",
-        "date_label": "2026-05-13"
-      },
-      {
-        "title": "Les dirigeants d'Afrique de l'Ouest et du Centre et leurs partenaires appellent à une action accrue en faveur de la nutrition et du développement de la petite enfance",
-        "link": "http://www.banquemondiale.org/fr/news/press-release/2026/05/13/leaders-in-western-and-central-africa-and-partners-call-for-stronger-action-on-nutrition-and-early-childhood-development",
-        "date": "2026-05-13",
-        "date_label": "2026-05-13"
       }
     ],
     "wb_annual": [
@@ -1964,62 +1964,62 @@
       {
         "title": "SAB Final Sanctions Decision No.10",
         "link": "https://www.afdb.org/sites/default/files/2023/02/28/ogon-asu_limited_mr._william_tuku_ogon_-_sab_final_decision-signed.pdf",
-        "date": "2023-08-21",
-        "date_label": "21 Aug 2023"
+        "date": "2023-09-08",
+        "date_label": "8 Sept 2023"
       },
       {
         "title": "SAB Final Sanctions Decision No.9",
         "link": "https://www.afdb.org/sites/default/files/2022/08/11/decision_de_sanctions_ecci_decision_no._9_final_clean_signed_en.pdf",
-        "date": "2023-04-11",
-        "date_label": "11 Apr 2023"
+        "date": "2023-08-21",
+        "date_label": "21 Aug 2023"
       },
       {
         "title": "SAB Final Sanctions Decision No.8",
         "link": "https://www.afdb.org/sites/default/files/news_documents/sargittarius_sab_final_decision_n_8.pdf",
-        "date": "2023-02-24",
-        "date_label": "24 Feb 2023"
+        "date": "2023-04-11",
+        "date_label": "11 Apr 2023"
       },
       {
         "title": "SAB Final Sanctions Decision No.7",
         "link": "https://www.afdb.org/sites/default/files/2020/06/02/sinotec_sab_final_decision_n7.pdf",
-        "date": "2022-08-11",
-        "date_label": "11 Aug 2022"
+        "date": "2023-02-24",
+        "date_label": "24 Feb 2023"
       },
       {
         "title": "SAB Final Sanctions Decision No.6",
         "link": "https://www.afdb.org/sites/default/files/2020/06/02/etep_sa_case_no._6_final_decision_en.pdf",
-        "date": "2021-08-01",
-        "date_label": "01 Aug 2021"
+        "date": "2022-08-11",
+        "date_label": "11 Aug 2022"
       },
       {
         "title": "SAB Final Sanctions Decision No.5",
         "link": "https://www.afdb.org/sites/default/files/2020/06/02/sab_final_decision_no_5_-_zhonghao.pdf",
-        "date": "2020-04-23",
-        "date_label": "23 Apr 2020"
+        "date": "2021-08-01",
+        "date_label": "01 Aug 2021"
       },
       {
         "title": "SAB Final Sanctions Decision No.4",
         "link": "https://www.afdb.org/sites/default/files/2020/06/02/sab_order_2019-01_-_sanctions_case_sn-2018-05_final.pdf",
-        "date": "2020-05-11",
-        "date_label": "11 May 2020"
+        "date": "2020-04-23",
+        "date_label": "23 Apr 2020"
       },
       {
         "title": "SAB Final Sanctions Decision No.3",
         "link": "https://www.afdb.org/fileadmin/uploads/afdb/Documents/Generic-Documents/Summaries_of_the_Sanctions/Final_Sanctions_Decision_N_3_Summary.pdf",
-        "date": "2020-04-17",
-        "date_label": "17 Apr 2020"
+        "date": "2020-05-11",
+        "date_label": "11 May 2020"
       },
       {
         "title": "SAB Final Sanctions Decision No.2",
         "link": "https://www.afdb.org/fileadmin/uploads/afdb/Documents/Generic-Documents/Summaries_of_the_Sanctions/Order_No._2016-1_.pdf",
-        "date": "2019-07-12",
-        "date_label": "12 Jul 2019"
+        "date": "2020-04-17",
+        "date_label": "17 Apr 2020"
       },
       {
         "title": "SAB Final Sanctions Decision No.1",
         "link": "https://www.afdb.org/fileadmin/uploads/afdb/Documents/Generic-Documents/Summaries_of_the_Sanctions/Final_Sanctions_Decision_No._1_Summary.pdf",
-        "date": "2016-12-06",
-        "date_label": "06 Dec 2016"
+        "date": "2019-07-12",
+        "date_label": "12 Jul 2019"
       },
       {
         "title": "Agriculture & Agro-industries",
@@ -2030,12 +2030,24 @@
       {
         "title": "Climate Change",
         "link": "https://www.afdb.org/en/topics-and-sectors/sectors/climate-change",
-        "date": "2015-08-27",
-        "date_label": "27 Aug 2015"
+        "date": "2015-08-29",
+        "date_label": "29 Aug 2015"
       },
       {
         "title": "Economic & Financial Governance",
         "link": "https://www.afdb.org/en/topics-and-sectors/sectors/economic-financial-governance",
+        "date": "2015-08-29",
+        "date_label": "29 Aug 2015"
+      },
+      {
+        "title": "Education",
+        "link": "https://www.afdb.org/en/topics-and-sectors/sectors/education",
+        "date": "2015-08-27",
+        "date_label": "27 Aug 2015"
+      },
+      {
+        "title": "Energy",
+        "link": "https://www.afdb.org/en/topics-and-sectors/sectors/energy-power",
         "date": "2015-08-27",
         "date_label": "27 Aug 2015"
       },
@@ -2044,84 +2056,6 @@
         "link": "https://am.afdb.org/",
         "date": "",
         "date_label": ""
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.13",
-        "link": "https://www.afdb.org/sites/default/files/2023/09/11/sab_final_decision_13-_joycot_general_contractors_limited.pdf",
-        "date": "2023-09-08",
-        "date_label": "8 Sept 2023"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.12",
-        "link": "https://www.afdb.org/sites/default/files/2023/08/21/sab_decision_no._12_-_beza_consulting_engineer_and_mr._gebremariam_clean_v3.pdf",
-        "date": "2023-08-21",
-        "date_label": "21 Aug 2023"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.11",
-        "link": "https://www.afdb.org/sites/default/files/2025/01/24/decision_finale_du_sab_n_11_bel_mabrouk_translation.pdf",
-        "date": "2023-04-11",
-        "date_label": "11 Apr 2023"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.10",
-        "link": "https://www.afdb.org/sites/default/files/2023/02/28/ogon-asu_limited_mr._william_tuku_ogon_-_sab_final_decision-signed.pdf",
-        "date": "2023-02-24",
-        "date_label": "24 Feb 2023"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.9",
-        "link": "https://www.afdb.org/sites/default/files/2022/08/11/decision_de_sanctions_ecci_decision_no._9_final_clean_signed_en.pdf",
-        "date": "2022-08-11",
-        "date_label": "11 Aug 2022"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.8",
-        "link": "https://www.afdb.org/sites/default/files/news_documents/sargittarius_sab_final_decision_n_8.pdf",
-        "date": "2021-08-01",
-        "date_label": "01 Aug 2021"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.7",
-        "link": "https://www.afdb.org/sites/default/files/2020/06/02/sinotec_sab_final_decision_n7.pdf",
-        "date": "2020-04-23",
-        "date_label": "23 Apr 2020"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.6",
-        "link": "https://www.afdb.org/sites/default/files/2020/06/02/etep_sa_case_no._6_final_decision_en.pdf",
-        "date": "2020-05-11",
-        "date_label": "11 May 2020"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.5",
-        "link": "https://www.afdb.org/sites/default/files/2020/06/02/sab_final_decision_no_5_-_zhonghao.pdf",
-        "date": "2020-04-17",
-        "date_label": "17 Apr 2020"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.4",
-        "link": "https://www.afdb.org/sites/default/files/2020/06/02/sab_order_2019-01_-_sanctions_case_sn-2018-05_final.pdf",
-        "date": "2019-07-12",
-        "date_label": "12 Jul 2019"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.3",
-        "link": "https://www.afdb.org/fileadmin/uploads/afdb/Documents/Generic-Documents/Summaries_of_the_Sanctions/Final_Sanctions_Decision_N_3_Summary.pdf",
-        "date": "2016-12-06",
-        "date_label": "06 Dec 2016"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.2",
-        "link": "https://www.afdb.org/fileadmin/uploads/afdb/Documents/Generic-Documents/Summaries_of_the_Sanctions/Order_No._2016-1_.pdf",
-        "date": "2015-08-29",
-        "date_label": "29 Aug 2015"
-      },
-      {
-        "title": "SAB Final Sanctions Decision No.1",
-        "link": "https://www.afdb.org/fileadmin/uploads/afdb/Documents/Generic-Documents/Summaries_of_the_Sanctions/Final_Sanctions_Decision_No._1_Summary.pdf",
-        "date": "2015-08-27",
-        "date_label": "27 Aug 2015"
       }
     ],
     "afdb_news": [
@@ -2222,6 +2156,12 @@
         "date_label": "2024-12-09"
       },
       {
+        "title": "Integrity in Development Projects",
+        "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQZTFjUzNReEpUUU1zUUFjZGNUZFFHWk01el92YVh4eVBGNWZlaGtKM1d3LV80c0Q3ejRmWWwzZnJ4dW1aYmRhU2dHeFhoWFlSdnZReEpQeXU0UUtjbERkcnd6Z0lrbmNUNlRxb2hIX3F6dm93NW9UOFp4aEJEeVBvcDFCck9uWkVOai1iUGY3NmMxUHVweVV0aXBfS0tlbjVoTHEwSXNsQzZPY3R4dGZOcUNoYTJHR1F4OElMRTNfUGFsZ0o2S2U4Q2VaNjRnbzRkcEpyQlVmR1ZCTlpUZ2xUME9jVVRpa0FaZ3Juc2pUa0xzSGg0T0hIcA?oc=5",
+        "date": "2018-05-07",
+        "date_label": "2018-05-07"
+      },
+      {
         "title": "African Development Bank debars Entreprise de Commerce et de Construction Immobilière for nine months for fraudulent practices",
         "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxQX0VJTmg3elI5cVNlY25xSVBTblJDWDcxZllINUZDUGVURXpDSEREbFhWWDMwQXkwejBKVkliTXVBRzdYWm80c3hZWExmbzFab0VsODlnMERlWmtubVd5Qk5FQkZiS294UE5WRTRTcGdCUnF0NzFKS3E2UmxvVjMzWl9Rc1I2NlRwc3FaaDZuQUxHb3dPNnlITklPYmlUYk5uWGdmM2JYVmdwcldUNWhXMjM1TEZTYzF0RllOVEc0eXNZWW16VXc4b09hWnFULU94bGhpTUQwXzVLdUI1VmxhQTNhMWZGX1VoUHQ5Wms4S0xZdXdvTW1rVEN5MDVEZ3lmVkhkQjV0enFFbjQ?oc=5",
         "date": "2022-07-25",
@@ -2229,9 +2169,9 @@
       },
       {
         "title": "Integrity in Development Projects",
-        "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQZTFjUzNReEpUUU1zUUFjZGNUZFFHWk01el92YVh4eVBGNWZlaGtKM1d3LV80c0Q3ejRmWWwzZnJ4dW1aYmRhU2dHeFhoWFlSdnZReEpQeXU0UUtjbERkcnd6Z0lrbmNUNlRxb2hIX3F6dm93NW9UOFp4aEJEeVBvcDFCck9uWkVOai1iUGY3NmMxUHVweVV0aXBfS0tlbjVoTHEwSXNsQzZPY3R4dGZOcUNoYTJHR1F4OElMRTNfUGFsZ0o2S2U4Q2VaNjRnbzRkcEpyQlVmR1ZCTlpUZ2xUME9jVVRpa0FaZ3Juc2pUa0xzSGg0T0hIcA?oc=5",
-        "date": "2018-05-07",
-        "date_label": "2018-05-07"
+        "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxOWVNrbWJwTzI5aUw5blp2d2dsQktTMjdSckRoZzdvZWhQeVY5UE1TLWVfd3cyYzdXeFpSUTBfSHdGNzBBUDlYQ3JKOU9IMUdSTUQ4cUsxLUFHblU4YkRXNkFhekJvaDdQRVBTdW1acGM2RkMxMEszY1Y0aGc0WVRDeXV0UWdDaVVScFdaM0ZPUnM5OXVHTnZlbngtaTdqRFJDcDl6cHlESTZCWXFvbkN0ZHFMdGpkajBUc0ZPNXNrcFR0M0VacTl6Y3JxZ1ZWdXZ1WTJ1SkRlOFVzdklQNGY1blk5bl9fVVdkV2hKTjRTZXRWTGpTeW5zLWI4WWE?oc=5",
+        "date": "2018-05-24",
+        "date_label": "2018-05-24"
       },
       {
         "title": "Integrity in Development Projects",
@@ -2244,12 +2184,6 @@
         "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxQR1FCa3k0MWxhY0UxRVh6TUtmczZ2OU9SWDBkTUEwbmZUS1ltdGdaM3ZNTHgyZUQyTUhKNzJNak4wNC1vOUJseHZncWZIbGFQdHA3ai1FYnd1MzlxWklrM3BjTnBPR3BTYV9fT0N1WXdCR0pWcmtiWWlfNkhYSi1zM0JIUzJHa1pOTE9qZU1tMXhrZlp6MV9KSUpNbXd4U2Fia2ZNUmhrRHNMTXdSd0JTU0RpbWJnMkhzOW5HbERaMTRzQTBrdjZQWGpaWXhOb29NdGxBWWtKN2h0aW53WGYxYjc5bHhmWnJwZnVRQlVKNUVvSXJ2b2VZbGNWX3U0Q1AyQVVaT2dSU25HbW1l?oc=5",
         "date": "2023-04-28",
         "date_label": "2023-04-28"
-      },
-      {
-        "title": "Integrity in Development Projects",
-        "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxOWVNrbWJwTzI5aUw5blp2d2dsQktTMjdSckRoZzdvZWhQeVY5UE1TLWVfd3cyYzdXeFpSUTBfSHdGNzBBUDlYQ3JKOU9IMUdSTUQ4cUsxLUFHblU4YkRXNkFhekJvaDdQRVBTdW1acGM2RkMxMEszY1Y0aGc0WVRDeXV0UWdDaVVScFdaM0ZPUnM5OXVHTnZlbngtaTdqRFJDcDl6cHlESTZCWXFvbkN0ZHFMdGpkajBUc0ZPNXNrcFR0M0VacTl6Y3JxZ1ZWdXZ1WTJ1SkRlOFVzdklQNGY1blk5bl9fVVdkV2hKTjRTZXRWTGpTeW5zLWI4WWE?oc=5",
-        "date": "2018-05-24",
-        "date_label": "2018-05-24"
       },
       {
         "title": "Integrity in Development Projects: The African Development Bank Debars Sieyuan Electric and Subsidiaries for Fraud",
@@ -2282,16 +2216,16 @@
         "date_label": "2025-02-20"
       },
       {
-        "title": "African Development Bank debars Goldsun Investments Company Limited for 24 months for Fraudulent Practices",
-        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPSGFvRUk1bmh4bXNLSDJYUW9TLU1VQnhrRF9qU19vVHlEdkV2eW5mR2F3bXplSkJuNXktNDhIUkxwNDNwNC1PUTJhczNMUkxveUVRTEg5UkROYnZyQXNsOUVUYlZzY09zbzYwemFyZGcxMjczSnNFYWNJSlJhVG01WHFvX0JwcDIzczB6QUloTmhQLV9vU0hrYXV3RFB4YUZ3ZXJTNlUtbmlMY2VyNGhoa203d2t4U3haOE9pRTZiQkJSLXM2dHRfVW1qaGpyR1gxb3M1eS1xdTBUbXQ2OWRhZDJhOWtNVmVudXRueGJqd0w?oc=5",
-        "date": "2023-05-09",
-        "date_label": "2023-05-09"
-      },
-      {
         "title": "African Development Bank debars four companies involved in fraudulent and collusive practices for 24 months",
         "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQZ2tMNkJVMWx1Qmh3eno5dEJlV3czdzBfUkxVR0V0SWowNnljTlVkZENHSkRTdmkwN0c3Z2l3Q2ZOamZMelFrenFrU01kZl9fdmlReEFRWkI2UFhrYzZFV1FsYTZFU1EzaHg1OV95dmltUGxJSWpqcUZSX0xKSHhuTnRfRjFCSTc1ZkxhWEtjVzRVakRwTjBGMU9hOEp1TTBKNFg3TXBQZG9ocDVQa1phMWowcFk0dGk3cDBnbmVQS1RnbGttNXdrUmc5RkU2STdDMVl5MU01RUFTSGowYVhCaWVzRTRRQ0pyYzZzcGw1TUNQY3M?oc=5",
         "date": "2020-08-20",
         "date_label": "2020-08-20"
+      },
+      {
+        "title": "African Development Bank debars Goldsun Investments Company Limited for 24 months for Fraudulent Practices",
+        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPSGFvRUk1bmh4bXNLSDJYUW9TLU1VQnhrRF9qU19vVHlEdkV2eW5mR2F3bXplSkJuNXktNDhIUkxwNDNwNC1PUTJhczNMUkxveUVRTEg5UkROYnZyQXNsOUVUYlZzY09zbzYwemFyZGcxMjczSnNFYWNJSlJhVG01WHFvX0JwcDIzczB6QUloTmhQLV9vU0hrYXV3RFB4YUZ3ZXJTNlUtbmlMY2VyNGhoa203d2t4U3haOE9pRTZiQkJSLXM2dHRfVW1qaGpyR1gxb3M1eS1xdTBUbXQ2OWRhZDJhOWtNVmVudXRueGJqd0w?oc=5",
+        "date": "2023-05-09",
+        "date_label": "2023-05-09"
       },
       {
         "title": "African Development Bank debars Express Automation Limited for 36 months for fraudulent practices",
@@ -2348,12 +2282,6 @@
         "date_label": "2023-03-09"
       },
       {
-        "title": "AfDB - OECD joint initiative to support business integrity",
-        "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPTC1uRDVORkRORi1kbi0tN2dNQ3JvdkNWdDN1czR0NldJZ29jMVhfUFRDZHVFSmpMREkxendURlNKcmkwbjNrelQzZG1zQlhVMXUzUmpUZXZTMVQ5UjFfUGQtbnJiS0R1bXlWNmlqUjBkMmpLb2x1Vk1tWjRMN2tCUXVZN01LenBnU0xRS0JDM3pkb0hReGlVRF9B?oc=5",
-        "date": "2017-04-04",
-        "date_label": "2017-04-04"
-      },
-      {
         "title": "Annual Meetings of African Development Bank Group, 2024: The Bank’s independent sanction mechanisms are effective but major challenges still remain (the opinion of judges)",
         "link": "https://news.google.com/rss/articles/CBMiswJBVV95cUxOZDBUNWp1b2hRbEMwMUlEOUtnWmVJaUROMkJCcXZvLTBhcW8xZFVCX0k5VlBNMlR5ZWhZOF83cjhMUGRZaFJpckhqU25OcDhVTnRFOHFHVF83bS1velJuRFM1NmF5ZWlpNGhtM0t6YlJEbFlnOEZ0Q0VFNFVoWFlFZi1reFBEdmt4N3hySVlFQ0Q3SzVzVzFtNElrN2dPX3RLR1RlZFVFRlVwd3ZNMWlhMlZwZFBFUzRfaTdUT2dZSUkyYmh4SEY1LUVacFh4bjJjOXg4dHRlOGVYQk9FV0RhZTZxbkdVN2tWZW9uTm1FTUQxVEtFU09VOG9kNVN5MUdVZmdFSnBSSUVQR0s3MWE4anlST0pCQ1BFMlFGdU0wUnFjMWViR2d6dlpkUV9Lai1QOGRN?oc=5",
         "date": "2024-06-01",
@@ -2384,6 +2312,12 @@
         "date_label": "2022-11-23"
       },
       {
+        "title": "Is weak governance harming the African Development Bank?",
+        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPT212WF94NGtoYjdWdUFiTGlGUmZXdzRCempUNFpwa1RfUTlMb21FR2xYOXU2ZjJ0cm13eVUtYmpfYkxlM2tFbUxpYkUxQlRXZkFOdExBb2Jaa3NBaXp2aEdOQkkybmFDLTQ4V002b1BSQ2JVU0p1OTF3YjlOVm1veWVLY3pjck1TNURDUmtTR1pPX09lY1M5XzhHaWFDYmhvU1dOQ3B4M1lOaUFyZEdCR3M4RklEUQ?oc=5",
+        "date": "2022-05-19",
+        "date_label": "2022-05-19"
+      },
+      {
         "title": "Illicit Financial Flows and the Problem of Net Resource Transfers from Africa: 1980-2009",
         "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9oX05zQzFoRnFFb2tzcGlfN3FBd0wydUxUd0NMYUhEeWdYNXM5UzRobjZWY184OERxa3ZFbElKMlBvYXhHdGFNYWxVNjlucXl3R01nTXRPdlhvQXpLNW5UZUt6SmhFTER4VnVaTHJOUFZBdw?oc=5",
         "date": "2013-05-29",
@@ -2396,16 +2330,16 @@
         "date_label": "2021-02-16"
       },
       {
+        "title": "Madagascar: African Development Bank Group supports public procurement reform",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNa2ZkNXRVS0VUbWdqbmJZV01RUXNIMGxtX29ua3lrSW40UERkNGl5V3g0cVFPRGlNdmJVMjNjMV96RXNtcmNGMTN2VXZIY0UzSHlKM3pSWE01ZGhKTW1SOUpzRi1zQVJIYUc5UUpCYjV4QTdORVZvNXZqR0UwaTFpM3NVc2YzUVZSWll0cW9TRVcxeWFFUjctOVVLLXlHajc0eGN5OUF0TE9iY0VqMXN0bE01RHAweVo4QUVaYkpGcw?oc=5",
+        "date": "2024-07-26",
+        "date_label": "2024-07-26"
+      },
+      {
         "title": "Integrity in Development Projects",
         "link": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOQWU3VVBWRW93YkFzMUZpQzdud004b25nNXNVRzduUUJXcUpSUmwwWkNST2FMR2tnM3p5YWdNYUk2UE5RaTRGZ3FhNksweWNld195ejlhTGVKdTY4ejNEMm1McWFDNzIzZE91NnZiUnFhTXFteC1xRHhRQm5jcHM1ZV92UGs1a0hpMmZ5RTVlbFNHenBPVnFndzFkY2tMdWVyVlViOVlqMURjZ2FsZTlSeHltMnVnaVBxS2haSWxRZ25oVnUzVkl1Q0Q5c2ZIbkZER1BERFhJbVo2LVdOS2xkTTJZUGhXaG9sQ3RHNDJCNmJyMG8wT19xQ3JyQk5UbXh1NkJqbWNDTGQ1ck1jRnhXcGh3MTlVcHFmVjdUS0hTUDA?oc=5",
         "date": "2019-01-23",
         "date_label": "2019-01-23"
-      },
-      {
-        "title": "Asian Development Bank: integrity compliance and enforcement",
-        "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOem5yVTBBUnpzeFlnMEYyZ1FCYVBZRFdzQXBMWTMxbDZIdHpvekY4eFN0UlBucFhoR0x5Z19wTm45RUxMMDBWZFppS1IzNGl0M2p1SWFHa2RVRzdNd1p4T3Bld1N4T3dmOXZOdTl3Z0hpak1sX0xQNC00bjFFRXJYeENHNFRCS2F5OTduYUYweEE2LThiT0hiZEJjRHFvNEJKdWJIUjNEYUhxVWwtWVhtTTZyM08wNkFSSVFv?oc=5",
-        "date": "2021-08-25",
-        "date_label": "2021-08-25"
       },
       {
         "title": "Integrity in AfDB Projects: AfDB debars and fines China First Highway Engineering Co. Ltd.",
@@ -2414,10 +2348,34 @@
         "date_label": "2014-12-15"
       },
       {
+        "title": "African Development Bank appoints Chioma Onukogu as Director of Board Affairs and Proceedings",
+        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPQ0tfYmtnOEJnQnZkTkZWOEw2UWljY1IxbnR3c3Q5dDNCMEJFWGlfY2Q2OXVNNVluejg2aDVkUEdkanpURHhtU1BVc2NOelU2VXo3QzQ2X25qcXZ5VVlVS1BORHNLS0VCd3ZkZHhNR3JDMklueG9QYlU4eTlXZjItMnVtVUk0ci1TMWtLZ1J2VVZjMG5ibTA3TDJSWnpsZXJuVGlhRnVtVHdia3FfM3NkeWs3U2tTRV9JX1UtQ055cVZETDhXZVdEdlpCQWRGQQ?oc=5",
+        "date": "2024-06-11",
+        "date_label": "2024-06-11"
+      },
+      {
+        "title": "Asian Development Bank: integrity compliance and enforcement",
+        "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOem5yVTBBUnpzeFlnMEYyZ1FCYVBZRFdzQXBMWTMxbDZIdHpvekY4eFN0UlBucFhoR0x5Z19wTm45RUxMMDBWZFppS1IzNGl0M2p1SWFHa2RVRzdNd1p4T3Bld1N4T3dmOXZOdTl3Z0hpak1sX0xQNC00bjFFRXJYeENHNFRCS2F5OTduYUYweEE2LThiT0hiZEJjRHFvNEJKdWJIUjNEYUhxVWwtWVhtTTZyM08wNkFSSVFv?oc=5",
+        "date": "2021-08-25",
+        "date_label": "2021-08-25"
+      },
+      {
+        "title": "Workshop on Fighting Corruption and Tackling Illicit Financial Flows from Africa",
+        "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNUGRuNFlNY1FCd0VoMlJxb25qM1JtRXpGX3BMY0RUREdwblM4ZlU3WXdJQ2NVZ3pBU0s5NGxFVXpmaFdLRjlmVnhjUUJoVTFlekxzUjhieE5XTm9QMS1saTJHYXRDZVZzMFRSTU9LTkUwS3daaUY2ZFgzY0lPaUU0OW5FRXpJUmh1eXZTaUlXeTAxQTJSem1tWDUzdHMxZkExeFpHMmozeGY5VHlOWjk3a3Badmt2d2lLUFRQR2RFaWRJbjls?oc=5",
+        "date": "2019-07-04",
+        "date_label": "2019-07-04"
+      },
+      {
         "title": "AfDB and IFC to Host Multilateral Development Banks’ Conference on Private Sector Integrity",
         "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQMi1tbExOVl9RRHFOYjAyeGxZREFfZ1JrVFNhR2p6Q0gxQkp5QTgybDg1M0ZxWlVTejFaUXlIRXZwbkN3Yjlja3QtQ05MY0hScnEtUlBDVE14TlJMNXJUZWpNQlFpZkxTZ25Jc2Vpb2toN1R6WUZIclljbkVxeHphNjdkWFBWdVNkMnpwU1dzazdENlBPc2dRUkdHRGFjMER1R0V2NWZUVVlwc21BWTM3Vm4xTUZWcWx0T1NxNmx2ak1WenJHemctN0hhZFZ3QXhU?oc=5",
         "date": "2019-08-01",
         "date_label": "2019-08-01"
+      },
+      {
+        "title": "Akinwumi A. Adesina",
+        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE90WTZOUzhkVTdkM0dtcEJCWGltOVBUWV8tZm13a2ZhbmVPeGt0RS1tRGhhZ291M0dlQ1Q5RlRIbHRLaWpFODZDM0cwRG5IQTdPbUQ2SERKMUFkdjlkd0RBZ0Y5U3FGVWVfQUFEVUpGczV0NnBSTnNqMm5TX0Vhdw?oc=5",
+        "date": "2026-03-27",
+        "date_label": "2026-03-27"
       },
       {
         "title": "AfDB appoints Paula Santos Da Costa as Acting Director, Office of Integrity and Anti-Corruption",
@@ -2432,10 +2390,46 @@
         "date_label": "2020-04-20"
       },
       {
+        "title": "Appointment Announcement: Mr. Ifedayo Orimoloye as The Group Chief Risk Officer",
+        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPdlJCNDFqQk0zbGN6Y1B4azdrMV9YMHVEVTIzbThMbXM2VmhXUmF1WFdzVEM1Rmg5Tm1kaWtNc2FBRWVVMkxNSFFHTDFTQlpTNmdjN2Jacll0S0R3ZTNxOExkNmR6M09qLVZnUmJSWTlZQWN3QVBhVUoyalFtNWJHc0VORDhqUDNsMHFQXy01TWozTkpSN2VmMUs1Z2pYUnROeTVfUXFpSk8xbk9EYmlqajJBemp6N1k?oc=5",
+        "date": "2021-02-12",
+        "date_label": "2021-02-12"
+      },
+      {
+        "title": "African Development Fund",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPQkNPRkJUUzlNVWgwbkpybk9fbE9vdWNJalJQYXFPcjlabzBQTkpkbXQ3Ukd6MV9iRU45VWJsWVJRU3BROEFveUUtRktmZXpKV1dDOFdwNU9JYUZVUE80YUhpZFM1TzNmbXJPZ1J5UmNXZEU4YVFndV9QbWYwZ1RQQjl3VnBNc09yMDcwVzFzSHR6TmIweWc?oc=5",
+        "date": "2019-06-30",
+        "date_label": "2019-06-30"
+      },
+      {
         "title": "African Development Bank debars Sino-Kenya Engineering for fraudulent practices",
         "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOblRWQlBsWkRkdEJYQktPODYzS0hicnpKNmhUWmRBZ3ZOUkJGdnZZS1lyWlN1N05RLURSNWZDMUFYRGtTR0tKOWJxRWFVS1Uyb3JycHNBRlk4aGROSFh2RW1iVDJMNXRrS3hvSnlsMFdxZXFmcmZjUmp4RXVTM0RzQVhnLUxSWEhYUm5WWEdOTEhBbkV4WDVnOXppQjItTXZrWTI1ZkR0OTRUVFpnb3BOMlgtUEZZRWtuc0p2enVZRVMxTEdI?oc=5",
         "date": "2024-03-24",
         "date_label": "2024-03-24"
+      },
+      {
+        "title": "Board Approves AfDB’s Definition of Risk Appetite",
+        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQVzdpS1Vtd0ZhcEwwV05BWGpVbmdmal93SkJLOE1vZTNsVmRId2tRSTYxZ0hvaFVFUTJMa0h1SEpMM2tTbkljRlZPWGxPUXoxM195b2NUUlkxV3FUcGhVSXRIcjlBRGNkQ0ZxdVBES3VuZ2RWd2dBdTFRV1RrczFvbE1CZWl1aDRmdzlHZEtMUGh2bnJwZ2poTw?oc=5",
+        "date": "2011-05-11",
+        "date_label": "2011-05-11"
+      },
+      {
+        "title": "International Anti-Corruption Day: AfDB calls for stronger measures in Africa",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNTGtNeEg3eTdDUU1UeGtLMGkyS0FPVldXR1JqUkRndUx0bVNnclJZX01MNG80MnZIWklWWkpOc1l3NFp6LTVMSFVYbVRYQzNSSHRUWnVtYi1CTXZEWHd4WkFqYkNoNmQtb0FreWFha2RpWTNkZTRqaXBxVVF4TUl4YVRwVk0yTlFPcWpWYksxbXp5SG14OE1GRmVvenM4RElIUEgycXBWb3AwMC0tRGpnVU82QXpqTkRmNi1IcUE5NA?oc=5",
+        "date": "2015-12-10",
+        "date_label": "2015-12-10"
+      },
+      {
+        "title": "Regional Approaches to Fight Tax Evasion and Avoidance in Africa",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOWHN6LThfclRXTmlBM2c1b0F4b0piOXVsZ1BMeWNaang0R1U0OEJ2Ui1fY05kczJFdmYxUFhVTEcwQWQ4NWJ3Zm43aFN6ai1zNDJxYVljMEJ1UFBSR0Nmd1lFY0VjNnoyazZVNUV2RUhJYkJGX1B0U2FORUJXaXBFd0J2WTBCbW10SHBlTFI2LVRIUTFRRjd1MW00ZGRSQURk?oc=5",
+        "date": "2023-06-27",
+        "date_label": "2023-06-27"
+      },
+      {
+        "title": "World Bank bans three PwC entities over misconduct in East African energy project",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxObWhFQVByb2pDWWZ3T08zSVlnZUJ1X1J4eW9xYmgwNGszU3dxYi1PWjZmTXZKRk01dkNJTXItUUVnVnMwb21UZEFQaDBVM3dVcmw0ZU5DdDZlWmljbVFnanBsTTdWbVlUNVJsdEZTQUNObFNaYWd5bTgxRW5yNXBVcmRrQjB1RW9qNW5tX0tiQWJFanBOMGVPM3FQcVhkNnl2MXpKeThrYTVHcWxSdmg4dmNTUUNHQkJaVE1PNGhlSdIBxAFBVV95cUxNSkl2NXNpdWZVR3RTY0VlS1RVMXJZYlVYLXBtOTctM1E4dmF4OHVWMUdGU2JqZFJ5c21pU2dYa1lralBlTWRFRER4MTNYSThoa3h1N2s1aEpJSWZiUXF1emtMdzYzczNjM1ZYWEFEcE9XeTFQVlFrVTRSZVBucGg3QzJwYkw3VXViMFJNVTd5VmxBT2RlZjNSLV9jZTJMcngtcXFQaEprQnd4czIwMExDajYtbVQ3R2JoSEVwYXd5T3FCbzA4?oc=5",
+        "date": "2026-03-18",
+        "date_label": "2026-03-18"
       }
     ],
     "afdb_annual": [
@@ -3004,7 +2998,7 @@
     ]
   },
   "blocked": [
-    "afdb_appeals"
+    "afdb_annual"
   ],
-  "last_run": "2026-05-30 02:04"
+  "last_run": "2026-05-30 04:51"
 }

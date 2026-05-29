@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>MDB Tracker 设置</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; padding: 22px; max-width: 480px; color: #1a1a2e; }
+    h1 { font-size: 16px; margin-bottom: 14px; }
+    label { display: block; font-size: 13px; margin-bottom: 6px; color: #374151; }
+    input { width: 100%; padding: 9px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+    button { margin-top: 14px; padding: 9px 20px; border: none; border-radius: 6px; background: #3b82f6; color: #fff; font-size: 14px; cursor: pointer; }
+    button:hover { background: #2563eb; }
+    #status { margin-top: 12px; font-size: 13px; color: #15803d; min-height: 18px; }
+    .hint { margin-top: 8px; font-size: 12px; color: #6b7280; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <h1>MDB Tracker 云端看板地址</h1>
+  <label for="apiBase">Netlify 域名（部署后填这里，例如 https://mdb-xxxx.netlify.app）</label>
+  <input id="apiBase" type="url" placeholder="https://your-site.netlify.app">
+  <button id="save">保存</button>
+  <div id="status"></div>
+  <p class="hint">留空则使用代码里的默认地址；本地调试会自动回退到 http://localhost:5051。</p>
+  <script src="options.js"></script>
+</body>
+</html>

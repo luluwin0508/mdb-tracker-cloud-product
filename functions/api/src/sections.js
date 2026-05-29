@@ -35,6 +35,7 @@ function buildSections(snapshot) {
   const results = (snapshot && snapshot.results) || {};
   const blocked = new Set((snapshot && snapshot.blocked) || []);
   return DISPLAY_SECTIONS.map((section) => ({
+    id: section.id,
     title: section.title,
     rows: section.sources.map((key) => {
       const source = SOURCE_BY_KEY[key];

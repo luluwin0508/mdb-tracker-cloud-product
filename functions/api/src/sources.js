@@ -102,16 +102,19 @@ const SOURCES = [
 
 const DISPLAY_SECTIONS = [
   {
+    id: "sanctions",
     title: "制裁案例追踪",
     newsFilter: false,
     sources: ["wb_sdo", "wb_board", "adb_cases", "afdb_sanctions", "afdb_appeals"],
   },
   {
+    id: "news",
     title: "新闻动态",
     newsFilter: true,
     sources: ["wb_news", "adb_news", "afdb_news", "aiib_news"],
   },
   {
+    id: "annual",
     title: "年度报告",
     newsFilter: false,
     sources: ["wb_annual", "adb_annual", "afdb_annual", "aiib_annual"],

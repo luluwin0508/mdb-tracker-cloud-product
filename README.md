@@ -1,72 +1,76 @@
 # MDB Tracker Cloud Product
 
-正式产品版：静态网页 + 刷新 API + 持久化数据。
+多边开发银行（MDB）制裁/新闻/年报追踪看板：静态网页 + 分板块刷新 API + Netlify Blobs 持久化 + 浏览器插件手动同步。
 
 ## 目录
 
-- `public/`：线上网页静态资源。
-- `functions/api/`：读取和刷新接口。
-- `data/latest.json`：本地开发时的持久化数据；部署到 CloudBase 后优先使用云数据库。
+- `public/` — 线上静态网页（`app.js` 拉 `/api/latest` 渲染，分板块刷新按钮）
+- `functions/api/` — 框架无关的核心逻辑（`handleRequest`、抓取、分板块、存储、同步解析）
+- `netlify/functions/` — Netlify 入口：`api.js`（HTTP）+ 三个分板块定时刷新函数
+- `netlify.toml` — 发布目录、`/api/*` 转发、定时任务 cron
+- `data/latest.json` — 本地开发的持久化文件 / 云端首屏的种子数据（打包内联进函数）
+- `extension/` — Chrome 插件（点击图标手动同步当前页到云端）
 
 ## 本地运行
 
 ```bash
-cd /Users/slsong/Desktop/codex工作区/mdb-tracker/cloud-product
-npm run dev
+cd cloud-product
+npm install
+npm run dev      # http://127.0.0.1:5051
+npm run check    # 冒烟测试 handleRequest
 ```
 
-访问：
+本地用 `data/latest.json` 读写（没有 Netlify Blobs 时自动回退）。
 
-```text
-http://127.0.0.1:5051
-```
+## 接口
 
-接口：
+- `GET  /api/latest` — 读取已保存数据 + 渲染用的 sections
+- `POST /api/refresh` — 全量刷新（并行，受单源超时约束）
+- `POST /api/refresh/<section>` — 分板块刷新，`<section>` ∈ `sanctions` / `news` / `annual`
+- `POST /api/sync` — 接收插件推来的页面 HTML，解析后并入快照
+- `GET  /api/health` — 健康检查
 
-- `GET /api/latest`：读取已保存数据。
-- `POST /api/refresh`：立即抓取并保存。
-- `GET /api/health`：健康检查。
+## 部署到 Netlify
 
-## CloudBase 控制台 Git 仓库部署
+这个仓库（`mdb-tracker-cloud-product`）的根目录就是本项目，`netlify.toml` 已配好，直接连仓库即可。
 
-如果使用腾讯云控制台里的 Git 仓库部署，建议把本目录 `cloud-product` 作为仓库根目录推到 GitHub。
+1. Netlify → Add new site → Import from GitHub，选 `luluwin0508/mdb-tracker-cloud-product`
+2. 构建设置保持默认（`netlify.toml` 已指定 `publish = public`、`functions = netlify/functions`，无需构建命令）
+3. 部署完成后，能访问以下地址即闭环：
+   ```
+   https://你的域名/
+   https://你的域名/api/health
+   https://你的域名/api/latest
+   ```
 
-控制台里选择：
+- **存储**：Netlify Blobs 在 Functions 运行时自动可用，无需建数据库。首次部署 Blobs 为空，页面先显示打包内联的 `data/latest.json` 种子；之后任意一次刷新/同步都会写入 Blobs。
+- **CLI 方式**（可选）：`npm i -g netlify-cli && netlify deploy --prod`。
 
-- 部署类型：Git 个人仓库部署
-- 框架/类型：CloudBase Framework / 静态网站 + 云函数
-- 根目录：如果仓库根目录就是本项目，填 `/`；如果把整个 `mdb-tracker` 推上去，填 `cloud-product`
-- 静态资源目录：`public`
-- 云函数目录：`functions`
-- 环境 ID：`mdb-board-d8g1opk5y85ae371e`
+## 分板块刷新 & 定时任务
 
-部署后，需要确认 `/api/*` 已转发到 `api` 云函数。能访问以下地址才算闭环：
+把"刷新"拆成三个板块，是为了绕开 Netlify 免费版函数 **10 秒同步执行上限**——每次只抓一个板块的源，请求更短、更容易在限额内返回。云端单源超时压到约 8.5 秒（`REQUEST_TIMEOUT_MS` 可调）。
 
-```text
-https://你的域名/
-https://你的域名/api/health
-https://你的域名/api/latest
-```
+`netlify.toml` 里配了三个错峰定时任务（cron 为 UTC）：
 
-## CloudBase CLI 部署方向
+| 函数 | 板块 | 频率 | 说明 |
+|------|------|------|------|
+| `refresh-news` | 新闻动态 | 每 3 小时 | 全是快源（JSON/RSS），最稳 |
+| `refresh-sanctions` | 制裁案例 | 每天 2 次 | 5 个 jina 慢源 |
+| `refresh-annual` | 年度报告 | 每天 1 次 | 变动很少 |
 
-1. 创建腾讯云 CloudBase 环境。
-2. 把 `cloudbaserc.json` 里的 `{{CLOUDBASE_ENV_ID}}` 改成环境 ID。
-3. 开通云数据库，集合名使用 `mdb_tracker_snapshots`。
-4. 在 CloudBase 控制台或 CLI 部署：
+页面顶部「全部刷新」会一次性刷三个板块；每个板块标题旁的「↻ 刷新本板块」只刷该板块。
 
-```bash
-tcb framework deploy
-```
+## Chrome 插件（手动同步）
 
-5. 在静态托管里配置 `/api/*` 转发到 `api` 云函数。
+云端机房 IP 容易被 MDB 反爬挡住，所以页面级抓取仍靠你浏览器里的插件补齐——且改成了**点击触发**：
 
-## 钉钉入口
+1. `chrome://extensions` → 打开「开发者模式」→「加载已解压的扩展程序」→ 选 `cloud-product/extension`
+2. 右键插件图标 →「选项」→ 填你的 Netlify 域名（例如 `https://mdb-xxxx.netlify.app`）保存
+3. 打开任意 MDB 来源页 → **点击工具栏插件图标** → 当前页 HTML 被同步到云端，页面右下角弹出结果提示
 
-部署成功后，把 CloudBase 静态网站 URL 配成钉钉 H5 微应用入口即可。访问控制可以先用 CloudBase/腾讯云侧能力做，后续再接钉钉免登。
+> 旧版插件（`mdb-tracker/extension`，页面加载即自动抓取本地 5001）已被本目录的 2.0 版取代，建议在扩展页移除旧的。
 
 ## 注意
 
-AFDB 部分页受 Cloudflare 影响，云端刷新可能偶发失败。失败时旧数据仍保留在 `latest` 快照里，页面不会丢失已保存结果。
-
-GitHub 部署包不内置本地 `data/latest.json` 缓存。首次打开如果还没有云数据库快照，页面会显示为空；手动点击刷新或用浏览器插件同步一次后，结果会保存到 CloudBase 数据库。
+- AFDB 等页面受 Cloudflare 影响，云端定时刷新可能偶发失败；失败时保留上次结果（页面显示"上次保存结果"），并可用插件手动补一次。
+- 分板块的失败状态互不影响：只刷新某板块不会清掉其它板块已保存的数据或失败标记。
