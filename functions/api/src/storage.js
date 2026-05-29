@@ -11,6 +11,11 @@ const BLOB_KEY = "snapshot";
 function getBlobStore() {
   try {
     const { getStore } = require("@netlify/blobs");
+    // v2 函数运行时会自动注入 Blobs context，getStore(name) 即可。
+    // 万一拿不到，支持用环境变量手动配置（兜底，正常用不到）。
+    const siteID = process.env.NETLIFY_BLOBS_SITE_ID;
+    const token = process.env.NETLIFY_BLOBS_TOKEN;
+    if (siteID && token) return getStore({ name: BLOB_STORE, siteID, token });
     return getStore(BLOB_STORE);
   } catch {
     return null;
