@@ -68,3 +68,5 @@ tcb framework deploy
 ## 注意
 
 AFDB 部分页受 Cloudflare 影响，云端刷新可能偶发失败。失败时旧数据仍保留在 `latest` 快照里，页面不会丢失已保存结果。
+
+GitHub 部署包不内置本地 `data/latest.json` 缓存。首次打开如果还没有云数据库快照，页面会显示为空；手动点击刷新或用浏览器插件同步一次后，结果会保存到 CloudBase 数据库。
