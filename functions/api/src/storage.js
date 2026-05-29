@@ -2,20 +2,13 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const LOCAL_DATA_PATH = path.resolve(__dirname, "../../../data/latest.json");
-const COLLECTION = "mdb_tracker_snapshots";
-const DOC_ID = "latest";
 const BLOB_STORE = "mdb-tracker";
 const BLOB_KEY = "snapshot";
 
-let cachedDb = null;
-
-function isCloudRuntime() {
-  return Boolean(process.env.TCB_ENV || process.env.SCF_NAMESPACE || process.env.TENCENTCLOUD_RUNENV);
-}
-
-// Netlify Blobs：部署在 Netlify Functions 时自动可用，无需配置数据库。
+// 不靠 process.env.NETLIFY 判断（函数运行时不一定有这个变量）。
+// 直接拿 Blobs store：部署在 Netlify 上能拿到；本地 node 调试会抛错，
+// 由调用方 try/catch 回退到本地文件。
 function getBlobStore() {
-  if (!process.env.NETLIFY) return null;
   try {
     const { getStore } = require("@netlify/blobs");
     return getStore(BLOB_STORE);
@@ -24,23 +17,23 @@ function getBlobStore() {
   }
 }
 
-function getCloudDb() {
-  if (!isCloudRuntime()) return null;
-  if (cachedDb) return cachedDb;
+// 打包到 Netlify 后磁盘上没有 data/latest.json；用静态 require 让 esbuild 把
+// 种子 JSON 内联进函数包，首屏（Blobs 还没数据时）才有内容可显示。
+function loadBundledSeed() {
   try {
-    const cloudbase = require("@cloudbase/node-sdk");
-    const app = cloudbase.init({ env: process.env.TCB_ENV || cloudbase.SYMBOL_CURRENT_ENV });
-    cachedDb = app.database();
-    return cachedDb;
+    return require("../../../data/latest.json");
   } catch {
-    return null;
+    return { results: {}, blocked: [], last_run: null };
   }
 }
 
-// 打包到 Netlify 后，磁盘上没有 data/latest.json；用静态 require 让
-// esbuild 把种子数据内联进函数包，首屏（Blobs 还没数据时）才有内容可显示。
-function loadBundledSeed() {
-  return require("../../../data/latest.json");
+async function readLocalFile() {
+  try {
+    const raw = await fs.readFile(LOCAL_DATA_PATH, "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
 }
 
 async function readSnapshot() {
@@ -49,54 +42,33 @@ async function readSnapshot() {
     try {
       const data = await store.get(BLOB_KEY, { type: "json" });
       if (data && data.results) return data;
+      // Blobs 可用但还没写过数据 → 用种子（本地文件优先，其次打包内联）
+      return (await readLocalFile()) || loadBundledSeed();
     } catch {
-      // Blobs 还没写过或读取失败，落到下面的种子数据。
+      // Blobs 实际不可用（多为本地 node 调试）→ 落到文件/种子
     }
   }
-
-  const db = getCloudDb();
-  if (db) {
-    try {
-      const result = await db.collection(COLLECTION).doc(DOC_ID).get();
-      const data = Array.isArray(result.data) ? result.data[0] : result.data;
-      if (data && data.snapshot) return data.snapshot;
-    } catch {
-      // Fall back to bundled seed data below.
-    }
-  }
-
-  try {
-    const raw = await fs.readFile(LOCAL_DATA_PATH, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    try {
-      return loadBundledSeed();
-    } catch {
-      return { results: {}, blocked: [], last_run: null };
-    }
-  }
+  return (await readLocalFile()) || loadBundledSeed();
 }
 
 async function saveSnapshot(snapshot) {
   const store = getBlobStore();
   if (store) {
-    await store.setJSON(BLOB_KEY, snapshot);
-    return;
-  }
-
-  const db = getCloudDb();
-  if (db) {
-    const payload = { snapshot, updated_at: new Date() };
     try {
-      await db.collection(COLLECTION).doc(DOC_ID).set(payload);
+      await store.setJSON(BLOB_KEY, snapshot);
+      return;
     } catch {
-      await db.collection(COLLECTION).add({ _id: DOC_ID, ...payload });
+      // Blobs 不可用 → 落到本地文件（仅本地开发能写）
     }
-    return;
   }
 
-  await fs.mkdir(path.dirname(LOCAL_DATA_PATH), { recursive: true });
-  await fs.writeFile(LOCAL_DATA_PATH, JSON.stringify(snapshot, null, 2), "utf8");
+  try {
+    await fs.mkdir(path.dirname(LOCAL_DATA_PATH), { recursive: true });
+    await fs.writeFile(LOCAL_DATA_PATH, JSON.stringify(snapshot, null, 2), "utf8");
+  } catch (error) {
+    // 云端只读文件系统写不了也不致命：本次结果已在响应里返回，下次仍可重抓。
+    console.warn(`[storage] 本地持久化跳过: ${error.message}`);
+  }
 }
 
 module.exports = { readSnapshot, saveSnapshot };
