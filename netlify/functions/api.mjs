@@ -1,7 +1,11 @@
 // Netlify Functions v2 入口（ESM）。用 v2 是为了让 Netlify Blobs 在运行时
 // 自动配置（经典 exports.handler 函数拿不到 Blobs context）。
 // 复用框架无关的 handleRequest（CJS，default import 取其 module.exports）。
+import { getStore } from "@netlify/blobs";
 import core from "../../functions/api/index.js";
+
+// 用 ESM import 注入 Blobs（v2 运行时提供），避免 CJS require 失败
+core.setBlobStoreFactory(() => getStore("mdb-tracker"));
 
 const { handleRequest } = core;
 

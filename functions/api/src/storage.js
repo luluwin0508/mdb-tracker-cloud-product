@@ -8,14 +8,18 @@ const BLOB_KEY = "snapshot";
 // 不靠 process.env.NETLIFY 判断（函数运行时不一定有这个变量）。
 // 直接拿 Blobs store：部署在 Netlify 上能拿到；本地 node 调试会抛错，
 // 由调用方 try/catch 回退到本地文件。
+// v2 函数(.mjs)用 ESM `import { getStore }` 注入工厂——这是 Netlify 提供
+// @netlify/blobs 的正道；在 CJS 里 require 它会因被外部化而 Cannot find module。
+let blobStoreFactory = null;
+function setBlobStoreFactory(factory) {
+  blobStoreFactory = factory;
+}
+
 function getBlobStore() {
   try {
+    if (blobStoreFactory) return blobStoreFactory();
+    // 本地开发回退：直接 require（本地已安装）；拿不到 context 会在读写时抛错并回退文件
     const { getStore } = require("@netlify/blobs");
-    // v2 函数运行时会自动注入 Blobs context，getStore(name) 即可。
-    // 万一拿不到，支持用环境变量手动配置（兜底，正常用不到）。
-    const siteID = process.env.NETLIFY_BLOBS_SITE_ID;
-    const token = process.env.NETLIFY_BLOBS_TOKEN;
-    if (siteID && token) return getStore({ name: BLOB_STORE, siteID, token });
     return getStore(BLOB_STORE);
   } catch {
     return null;
@@ -79,14 +83,14 @@ async function saveSnapshot(snapshot) {
 // 诊断用：报告 Blobs 在当前运行时是否真的可用（含具体报错），供 /health 调用。
 async function blobsStatus() {
   try {
-    const { getStore } = require("@netlify/blobs");
-    const store = getStore(BLOB_STORE);
+    const store = getBlobStore();
+    if (!store) return { available: false, error: "store is null (factory unset & require failed)" };
     await store.setJSON("__healthcheck__", { t: Date.now() });
     const back = await store.get("__healthcheck__", { type: "json" });
-    return { available: Boolean(back), roundtrip: Boolean(back) };
+    return { available: Boolean(back) };
   } catch (error) {
     return { available: false, error: `${error.name}: ${error.message}` };
   }
 }
 
-module.exports = { readSnapshot, saveSnapshot, blobsStatus };
+module.exports = { readSnapshot, saveSnapshot, blobsStatus, setBlobStoreFactory };

@@ -1,5 +1,8 @@
 // 定时刷新「新闻动态」板块（v2 scheduled function，cron 为 UTC）
+import { getStore } from "@netlify/blobs";
 import core from "../../functions/api/index.js";
+
+core.setBlobStoreFactory(() => getStore("mdb-tracker"));
 
 const { refreshSection } = core;
 
