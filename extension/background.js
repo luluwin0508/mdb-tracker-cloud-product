@@ -14,7 +14,10 @@ async function getApiBases() {
 }
 
 chrome.action.onClicked.addListener(async (tab) => {
-  if (!tab.id || !/^https?:/.test(tab.url || "")) return;
+  if (!tab.id || !/^https?:/.test(tab.url || "")) {
+    flashBadge("!", "#991b1b");
+    return;
+  }
 
   try {
     // 1. 在当前页抓取完整 HTML（activeTab 授权，点击时才允许）
@@ -50,15 +53,30 @@ chrome.action.onClicked.addListener(async (tab) => {
     const message = ok
       ? `✓ 已同步 ${response.key}（${response.count} 条）`
       : `同步失败：${(response && response.error) || lastError || "未知错误"}`;
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: showToast,
-      args: [message, !ok],
-    });
+    flashBadge(ok ? "✓" : "!", ok ? "#15803d" : "#991b1b");
+
+    // 页面提示条是锦上添花，注入失败也不影响同步本身
+    try {
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: showToast,
+        args: [message, !ok],
+      });
+    } catch (toastError) {
+      console.warn("[MDB Tracker] 提示注入失败:", toastError);
+    }
   } catch (error) {
+    flashBadge("!", "#991b1b");
     console.warn("[MDB Tracker] 同步出错:", error);
   }
 });
+
+// 在工具栏图标上闪一个角标，给出反馈（即便页面没法注入提示条）
+function flashBadge(text, color) {
+  chrome.action.setBadgeBackgroundColor({ color });
+  chrome.action.setBadgeText({ text });
+  setTimeout(() => chrome.action.setBadgeText({ text: "" }), 4000);
+}
 
 // 注入到页面里执行的提示函数（不能引用外部变量）
 function showToast(message, isError) {

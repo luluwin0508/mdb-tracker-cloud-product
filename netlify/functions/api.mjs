@@ -5,7 +5,7 @@ import { getStore } from "@netlify/blobs";
 import core from "../../functions/api/index.js";
 
 // 用 ESM import 注入 Blobs（v2 运行时提供），避免 CJS require 失败
-core.setBlobStoreFactory(() => getStore("mdb-tracker"));
+core.setBlobStoreFactory(() => getStore({ name: "mdb-tracker", consistency: "strong" }));
 
 const { handleRequest } = core;
 

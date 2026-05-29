@@ -2,7 +2,7 @@
 import { getStore } from "@netlify/blobs";
 import core from "../../functions/api/index.js";
 
-core.setBlobStoreFactory(() => getStore("mdb-tracker"));
+core.setBlobStoreFactory(() => getStore({ name: "mdb-tracker", consistency: "strong" }));
 
 const { refreshSection } = core;
 
