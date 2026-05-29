@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "MDB Tracker Sync",
-  "version": "2.0",
-  "description": "点击工具栏图标，手动把当前 MDB 页面同步到云端看板（不再自动抓取）",
+  "version": "2.1",
+  "description": "点击工具栏图标，把当前 MDB 页面同步到云端看板",
   "background": {
     "service_worker": "background.js"
   },
@@ -12,12 +12,11 @@
   "options_page": "options.html",
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": [
-    "http://localhost:5051/*",
-    "http://127.0.0.1:5051/*",
-    "https://*.netlify.app/*",
     "*://www.worldbank.org/*",
     "*://www.adb.org/*",
     "*://www.afdb.org/*",
-    "*://www.aiib.org/*"
+    "*://www.aiib.org/*",
+    "https://mdb-fdcompliance.xyz/*",
+    "https://roaring-gnome-273245.netlify.app/*"
   ]
 }

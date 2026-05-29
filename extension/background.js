@@ -1,16 +1,12 @@
 // 点击工具栏图标 → 抓当前页 HTML → POST 到云端 /api/sync。
 // 不再自动注入/自动抓取，完全由你点击触发。
 
-// 部署后把下面改成你的 Netlify 域名，或在扩展「选项」页里填（选项优先）。
-const DEFAULT_API_BASE = "https://YOUR-SITE.netlify.app";
-const LOCAL_FALLBACK = "http://localhost:5051";
+// 默认云端地址；可在扩展「选项」页覆盖（选项优先）。
+const DEFAULT_API_BASE = "https://mdb-fdcompliance.xyz";
 
-async function getApiBases() {
+async function getApiBase() {
   const { apiBase } = await chrome.storage.sync.get("apiBase");
-  const primary = (apiBase || DEFAULT_API_BASE).replace(/\/$/, "");
-  const bases = [primary];
-  if (!bases.includes(LOCAL_FALLBACK)) bases.push(LOCAL_FALLBACK);
-  return bases;
+  return (apiBase || DEFAULT_API_BASE).replace(/\/$/, "");
 }
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -26,26 +22,22 @@ chrome.action.onClicked.addListener(async (tab) => {
       func: () => ({ url: location.href, html: document.documentElement.outerHTML }),
     });
 
-    // 2. POST 到云端 /api/sync，主地址失败再回退本地
-    const bases = await getApiBases();
+    // 2. POST 到云端 /api/sync
+    const base = await getApiBase();
     let response = null;
     let lastError = "";
-    for (const base of bases) {
-      try {
-        const res = await fetch(`${base}/api/sync`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: result.url, html: result.html }),
-        });
-        const data = await res.json();
-        if (data && (data.ok || data.key)) {
-          response = data;
-          break;
-        }
-        lastError = (data && data.error) || `HTTP ${res.status}`;
-      } catch (error) {
-        lastError = error.message;
+    try {
+      const res = await fetch(`${base}/api/sync`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: result.url, html: result.html }),
+      });
+      response = await res.json();
+      if (!response || (!response.ok && !response.key)) {
+        lastError = (response && response.error) || `HTTP ${res.status}`;
       }
+    } catch (error) {
+      lastError = error.message;
     }
 
     // 3. 在页面上弹提示
